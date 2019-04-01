@@ -1,5 +1,12 @@
 {
     "name": "bulat/brain-games",
+    "type": "library",
+    "description": "One week learning project on PHP with Hexlet.",
+    "keywords": [
+         "games",
+         "package",
+         "hexlet"
+    ],
     "authors": [
         {
             "name": "BulatGL",
