@@ -10,6 +10,6 @@
     "bin": [
    	 "bin/brain-games"
     ],
-    "minimum-stability": "alpha",
+    "minimum-stability": "dev",
     "prefer-stable": true
 }
