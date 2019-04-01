@@ -1,0 +1,13 @@
+{
+    "name": "bulat/brain-games",
+    "authors": [
+        {
+            "name": "BulatGL",
+            "email": "galikhanovbulat@gmail.com"
+        }
+    ],
+    "require": {},
+    "bin": [
+   	 "bin/brain-games"
+  ]
+}
