@@ -25,7 +25,8 @@ function calc($triesCount, $name)
         return;
     }
 
-    $randOperator = array_rand(['+','-','*']);
+    $operators = ['+','-','*'];
+    $randOperator = $operators[array_rand($operators)];
     $randNumber1 = rand(-100, 100);
     $randNumber2 = rand(-100, 100);
 
