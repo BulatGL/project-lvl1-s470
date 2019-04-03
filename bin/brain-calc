@@ -2,7 +2,7 @@
 
 <?php
 
-// use function BrainGames\Evengame\even;
+// use function BrainGames\Calcgame\calc;
 use function BrainGames\Cli\run;
 
 $autoloadPath1 = __DIR__ . '/../../../autoload.php';
@@ -13,4 +13,4 @@ if (file_exists($autoloadPath1)) {
     require_once $autoloadPath2;
 }
 
-run("even", "Answer 'yes' if number even otherwise answer 'no'.");
+run("calc", "What is the result of the expression?");
