@@ -28,5 +28,6 @@ function even($triesCount, $name)
     line("Question: %d", $question);
     $answer = prompt("Your answer: ");
 
-    return !isEven($question, $answer, $name) ?: even($triesCount - 1, $name);
+    // return !isEven($question, $answer, $name) ?: even($triesCount - 1, $name);
+    !isEven($question, $answer, $name) ?: even($triesCount - 1, $name);
 }

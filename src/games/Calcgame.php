@@ -33,14 +33,14 @@ function calc($triesCount, $name)
     if ($randOperator === '+') {
         $calcResult = $randNumber1 + $randNumber2;
         line("Question: {$randNumber1} + {$randNumber2}");
-        return isAnswerRight($calcResult, $name) ? calc($triesCount - 1, $name) : calc($triesCount, $name);
+        !isAnswerRight($calcResult, $name) ?: calc($triesCount - 1, $name);
     } elseif ($randOperator === '-') {
         $calcResult = $randNumber1 - $randNumber2;
         line("Question: {$randNumber1} - {$randNumber2}");
-        return isAnswerRight($calcResult, $name) ? calc($triesCount - 1, $name) : calc($triesCount, $name);
+        !isAnswerRight($calcResult, $name) ?: calc($triesCount - 1, $name);
     } else {
         $calcResult = $randNumber1 * $randNumber2;
         line("Question: {$randNumber1} * {$randNumber2}");
-        return isAnswerRight($calcResult, $name) ? calc($triesCount - 1, $name) : calc($triesCount, $name);
+        !isAnswerRight($calcResult, $name) ?: calc($triesCount - 1, $name);
     }
 }
