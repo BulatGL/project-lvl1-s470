@@ -38,5 +38,5 @@ function even()
         }
     };
 
-    return $iterEven(3);
+    $iterEven(3);
 }
