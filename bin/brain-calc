@@ -2,8 +2,7 @@
 
 <?php
 
-// use function BrainGames\Calcgame\calc;
-use function BrainGames\Cli\run;
+use function BrainGames\Calcgame\calc;
 
 $autoloadPath1 = __DIR__ . '/../../../autoload.php';
 $autoloadPath2 = __DIR__ . '/../vendor/autoload.php';
@@ -13,4 +12,5 @@ if (file_exists($autoloadPath1)) {
     require_once $autoloadPath2;
 }
 
-run("calc", "What is the result of the expression?");
+// Вы мне в комментарии конкретно указали что нужно запускать функцию run() в bin, надеюсь, все-таки что это был пример только для одного из файлов или что запуск функции принадлежащей конкретной игре тоже допустим, главное чтобы это происходило без аргументов. Если все-таки нужен запуск одной и той же функции из всех бинарных файлов, то прошу прощения.
+calc();
