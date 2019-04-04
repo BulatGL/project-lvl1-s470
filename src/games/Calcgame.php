@@ -23,14 +23,14 @@ function calc()
     $operators = ['+','-','*'];
 
     $iterCalc = function ($triesCount) use (&$iterCalc, $name, $operators) {
-        $randOperator = $operators[array_rand($operators)];
-        $randNumber1 = rand(-10, 10);
-        $randNumber2 = rand(-10, 10);
-
         if ($triesCount === 0) {
             congratulate($name);
             return;
         }
+
+        $randOperator = $operators[array_rand($operators)];
+        $randNumber1 = rand(-10, 10);
+        $randNumber2 = rand(-10, 10);
 
         switch ($randOperator) {
             case '+':
