@@ -5,37 +5,32 @@ namespace BrainGames\Evengame;
 use function \cli\line;
 use function \cli\prompt;
 use function BrainGames\Cli\run;
+use function BrainGames\Cli\askName;
+use function BrainGames\Cli\isUserRightYesOrNoEdition;
+use function BrainGames\Cli\printQuestionAndAnswer;
+use function BrainGames\Cli\nextRoundOrFinish;
+use function BrainGames\Cli\congratulate;
 
-function isEven($question, $answer, $name)
+function isEven($question)
 {
-    $isOdd = $question % 2 === 0;
-    if ($answer === "yes" && $isOdd || $answer === "no" && !$isOdd) {
-        return true;
-    } else {
-        return false;
-    }
+    return $question % 2 === 0;
 }
 
 function even()
 {
-    $name = run("Answer 'yes' if number even otherwise answer 'no'.");
+    run("Answer 'yes' if number even otherwise answer 'no'.");
+    $name = askName();
 
     $iterEven = function ($triesCount) use (&$iterEven, $name) {
         if ($triesCount === 0) {
-            line("Congratulations, %s!", $name);
+            congratulate($name);
             return;
         }
 
         $question = rand(1, 100);
-        line("Question: %d", $question);
-        $answer = prompt("Your answer: ");
+        $answer = printQuestionAndAnswer("Question: {$question}");
 
-        if (isEven($question, $answer, $name)) {
-            line("Correct!");
-            $iterEven($triesCount - 1, $name);
-        } else {
-            line("Let's try again, {$name}");
-        }
+        nextRoundOrFinish($iterEven, isUserRightYesOrNoEdition($answer, isEven($question)), $triesCount, $name);
     };
 
     $iterEven(3);
