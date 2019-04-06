@@ -37,9 +37,9 @@ function guessNumberInProgression()
         }
 
         $index = rand(0, MAX_PROGRESSION_INDEX);
-        $randNumbers = makeProgression();
-        $answer = $randNumbers[$index];
-        $numbersWithMissingNum = $randNumbers;
+        $randomNumbers = makeProgression();
+        $answer = $randomNumbers[$index];
+        $numbersWithMissingNum = $randomNumbers;
         $numbersWithMissingNum[$index] = '..';
 
         $question = implode(' ', $numbersWithMissingNum);
