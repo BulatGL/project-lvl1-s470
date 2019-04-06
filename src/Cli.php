@@ -5,57 +5,42 @@ namespace BrainGames\Cli;
 use function \cli\line;
 use function \cli\prompt;
 
-function askName()
-{
-    $name = prompt('May I have your name?');
-    line("Hello, %s!\n", $name);
-
-    return $name;
-}
-
-function run($gameRules = '')
+function run($gameRules = '', $questionLine = '', $answerFunc = 0, $argForLineAndAnswer = 0)
 {
     line("Welcome to the Brain Games!");
-    if ($gameRules !== '') {
-        line("{$gameRules}\n");
-    }
-}
 
-function printQuestionAndAnswer($questionLine)
-{
-      line($questionLine);
-      return prompt("Your answer: ");
-}
-
-function isUserRight($userAnswer, $rightAnswer)
-{
-    $dataType = gettype($rightAnswer);
-    if ($dataType === 'integer') {
-        return (int) $userAnswer === $rightAnswer;
+    if ($gameRules === '') {
+        return;
     }
 
-    return $userAnswer === $rightAnswer;
-}
+    line("{$gameRules}\n");
+    $name = prompt('May I have your name?');
+    line("Hello, {$name}!\n");
 
-function isUserRightYesOrNoEdition($answer, $condition)
-{
-    return $answer === "yes" && $condition || $answer === "no" && !$condition;
-}
+    $triesToWin = 3;
 
-function nextRoundOrFinish($iterFunc, $isUserRight, $triesCount, $name, $additionalLine = '')
-{
-    if ($isUserRight) {
-        line("Correct!");
-        $iterFunc($triesCount - 1, $name);
-    } else {
-        if ($additionalLine !== '') {
-            line($additionalLine);
+    $runIter = function ($triesCount) use (&$runIter, $questionLine, $answerFunc, $argForLineAndAnswer, $name) {
+        if ($triesCount === 0) {
+            line("Congratulations, {$name}");
+            return;
         }
-        line("Let's try again, {$name}");
-    }
-}
 
-function congratulate($name)
-{
-        line("Congratulations, {$name}");
+        $randomArgument = $argForLineAndAnswer();
+        $questionLine = $questionLine($randomArgument);
+        $answer = $answerFunc($randomArgument);
+
+        line("Question: {$questionLine}");
+        $userAnswer = prompt("Your answer: ");
+
+        $userAnswer = $userAnswer === 'yes' || $userAnswer === 'no' ? $userAnswer : (int) $userAnswer;
+
+        if ($userAnswer === $answer) {
+            line("Correct!");
+            $runIter($triesCount - 1);
+        } else {
+            line("Let's try again, {$name}");
+        }
+    };
+
+    $runIter($triesToWin);
 }

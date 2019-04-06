@@ -5,33 +5,22 @@ namespace BrainGames\Evengame;
 use function \cli\line;
 use function \cli\prompt;
 use function BrainGames\Cli\run;
-use function BrainGames\Cli\askName;
-use function BrainGames\Cli\isUserRightYesOrNoEdition;
-use function BrainGames\Cli\printQuestionAndAnswer;
-use function BrainGames\Cli\nextRoundOrFinish;
-use function BrainGames\Cli\congratulate;
-
-function isEven($question)
-{
-    return $question % 2 === 0;
-}
 
 function even()
 {
-    run("Answer 'yes' if number even otherwise answer 'no'.");
-    $name = askName();
+    define("GAME_DEFINITION", "Answer 'yes' if number even otherwise answer 'no'.");
 
-    $iterEven = function ($triesCount) use (&$iterEven, $name) {
-        if ($triesCount === 0) {
-            congratulate($name);
-            return;
-        }
-
-        $question = rand(1, 100);
-        $answer = printQuestionAndAnswer("Question: {$question}");
-
-        nextRoundOrFinish($iterEven, isUserRightYesOrNoEdition($answer, isEven($question)), $triesCount, $name);
+    $numberForLineAndAnswer = function () {
+        return rand(1, 100);
     };
 
-    $iterEven(3);
+    $questionLine = function ($number) {
+        return "{$number}";
+    };
+
+    $answerFunc = function ($number) {
+        return $number % 2 === 0 ? 'yes' : 'no';
+    };
+
+    run(constant("GAME_DEFINITION"), $questionLine, $answerFunc, $numberForLineAndAnswer);
 }

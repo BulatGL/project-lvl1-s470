@@ -37,11 +37,11 @@ function guessNumberInProgression()
         $randomIndex = rand(1, 9);
         $randomArr = makeProgression();
         $randomArrWithMissingNum = $randomArr;
-        $rightMissingNum = $randomArrWithMissingNum[$randomIndex];
+        $missingNum = $randomArrWithMissingNum[$randomIndex];
         $randomArrWithMissingNum[$randomIndex] = '..';
         $randomArrToString = implode(' ', $randomArrWithMissingNum);
         $answer = printQuestionAndAnswer("Question: {$randomArrToString}");
-        nextRoundOrFinish($iterGuessNumberInProgression, isUserRight($answer, $rightMissingNum), $triesCount, $name);
+        nextRoundOrFinish($iterGuessNumberInProgression, isUserRight($answer, $missingNum), $triesCount, $name);
     };
 
     $iterGuessNumberInProgression(3);

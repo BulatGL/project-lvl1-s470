@@ -5,54 +5,41 @@ namespace BrainGames\Calcgame;
 use function \cli\line;
 use function \cli\prompt;
 use function BrainGames\Cli\run;
-use function BrainGames\Cli\askName;
-use function BrainGames\Cli\isUserRight;
-use function BrainGames\Cli\printQuestionAndAnswer;
-use function BrainGames\Cli\nextRoundOrFinish;
-use function BrainGames\Cli\congratulate;
-
-function makeAdditionalLine($answer, $calcResult)
-{
-    return "{$answer} is wrong answer ;(. Correct answer was {$calcResult}";
-}
 
 function calc()
 {
-    run("What is the result of the expression?");
-    $name = askName();
-    $operators = ['+','-','*'];
+    define("OPERATORS", ['+','-','*']);
+    define("GAME_DEFINITION", "What is the result of the expression?");
 
-    $iterCalc = function ($triesCount) use (&$iterCalc, $name, $operators) {
-        if ($triesCount === 0) {
-            congratulate($name);
-            return;
-        }
-
-        $randOperator = $operators[array_rand($operators)];
+    $randomArrWith2NumbersAndOperator = function () {
+        $randOperator = constant("OPERATORS")[array_rand(constant("OPERATORS"))];
         $randNumber1 = rand(-10, 10);
         $randNumber2 = rand(-10, 10);
 
-        switch ($randOperator) {
+        return [$randNumber1, $randOperator, $randNumber2];
+    };
+
+    $calcFunc = function ($arr) {
+        switch ($arr[1]) {
             case '+':
-                $calcResult = $randNumber1 + $randNumber2;
-                $answer = printQuestionAndAnswer("Question: {$randNumber1} + {$randNumber2}");
-                $additionalLine = makeAdditionalLine($answer, $calcResult);
-                nextRoundOrFinish($iterCalc, isUserRight($answer, $calcResult), $triesCount, $name, $additionalLine);
-                break;
+                return $arr[0] + $arr[2];
             case '-':
-                $calcResult = $randNumber1 - $randNumber2;
-                $answer = printQuestionAndAnswer("Question: {$randNumber1} - {$randNumber2}");
-                $additionalLine = makeAdditionalLine($answer, $calcResult);
-                nextRoundOrFinish($iterCalc, isUserRight($answer, $calcResult), $triesCount, $name, $additionalLine);
-                break;
+                return $arr[0] - $arr[2];
             default:
-                $calcResult = $randNumber1 * $randNumber2;
-                $answer = printQuestionAndAnswer("Question: {$randNumber1} * {$randNumber2}");
-                $additionalLine = makeAdditionalLine($answer, $calcResult);
-                nextRoundOrFinish($iterCalc, isUserRight($answer, $calcResult), $triesCount, $name, $additionalLine);
-                break;
+                return $arr[0] * $arr[2];
         }
     };
 
-    $iterCalc(3);
+    $questionLine = function ($arr) {
+        switch ($arr[1]) {
+            case '+':
+                return "{$arr[0]} + {$arr[2]}";
+            case '-':
+                return "{$arr[0]} - {$arr[2]}";
+            default:
+                return "{$arr[0]} * {$arr[2]}";
+        }
+    };
+
+    run(constant("GAME_DEFINITION"), $questionLine, $calcFunc, $randomArrWith2NumbersAndOperator);
 }
