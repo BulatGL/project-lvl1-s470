@@ -5,44 +5,47 @@ namespace BrainGames\Progression;
 use function \cli\line;
 use function \cli\prompt;
 use function BrainGames\Cli\run;
-use function BrainGames\Cli\askName;
-use function BrainGames\Cli\isUserRight;
-use function BrainGames\Cli\printQuestionAndAnswer;
-use function BrainGames\Cli\nextRoundOrFinish;
-use function BrainGames\Cli\congratulate;
+
+const TRIES_TO_WIN = 3;
+const GAME_DEFINITION = "What number is missing in the progression?";
+const PROGRESSION_LENGTH = 10;
+const MAX_PROGRESSION_INDEX = PROGRESSION_LENGTH - 1;
 
 function makeProgression()
 {
-    $randomFirstNum = rand(1, 100);
-    $resultArray = [$randomFirstNum];
-    $randomDifference = rand(1, 10);
-    for ($i = 1; $i < 10; $i++) {
-        $resultArray[] = $resultArray[$i - 1] + $randomDifference;
+    $firstNum = rand(1, 100);
+    $difference = rand(1, 10);
+    $result = [];
+    for ($i = 0; $i < PROGRESSION_LENGTH; $i++) {
+        if ($i === 0) {
+            $result[] = $firstNum;
+        } else {
+            $result[] = $result[$i - 1] + $difference;
+        }
     }
 
-    return $resultArray;
+    return $result;
 }
 
 function guessNumberInProgression()
 {
-    run("What number is missing in the progression?");
-    $name = askName();
+    $triesCount = 0;
 
-    $iterGuessNumberInProgression = function ($triesCount) use (&$iterGuessNumberInProgression, $name) {
-        if ($triesCount === 0) {
-            congratulate($name);
+    $iter = function ($triesCount) use (&$iter) {
+        if ($triesCount > TRIES_TO_WIN) {
             return;
         }
 
-        $randomIndex = rand(1, 9);
-        $randomArr = makeProgression();
-        $randomArrWithMissingNum = $randomArr;
-        $missingNum = $randomArrWithMissingNum[$randomIndex];
-        $randomArrWithMissingNum[$randomIndex] = '..';
-        $randomArrToString = implode(' ', $randomArrWithMissingNum);
-        $answer = printQuestionAndAnswer("Question: {$randomArrToString}");
-        nextRoundOrFinish($iterGuessNumberInProgression, isUserRight($answer, $missingNum), $triesCount, $name);
+        $index = rand(0, MAX_PROGRESSION_INDEX);
+        $randNumbers = makeProgression();
+        $answer = $randNumbers[$index];
+        $numbersWithMissingNum = $randNumbers;
+        $numbersWithMissingNum[$index] = '..';
+
+        $question = implode(' ', $numbersWithMissingNum);
+        run(GAME_DEFINITION, $question, $answer, $triesCount);
+        $iter($triesCount + 1);
     };
 
-    $iterGuessNumberInProgression(3);
+    $iter($triesCount);
 }
