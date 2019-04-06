@@ -23,15 +23,13 @@ function run($gameRules = '', $question = '', $answer = 0, $triesCount = 0)
         // const я использовал чтобы иметь доступ к NAME во всем коде, переменная этого понятно дело не позволяла.
         // Можно ли как то ещё пробросить name на уровень общей функции?
         line("Hello, " . NAME . "!\n");
-    }
-
-    if ($triesCount === TRIES_TO_WIN) {
+    } elseif ($triesCount === TRIES_TO_WIN) {
         line("Congratulations, " . NAME);
         return;
     }
 
     line("Question: {$question}");
-    $userAnswer = prompt("Your answer: ");
+    $userAnswer = prompt("Your answer ");
 
     $userAnswer = $userAnswer === 'yes' || $userAnswer === 'no' ? $userAnswer : (int) $userAnswer;
 
