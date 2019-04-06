@@ -8,13 +8,14 @@ use function BrainGames\Cli\run;
 
 const GAME_DEFINITION = "What is the result of the expression?";
 const OPERATORS = ['+','-','*'];
+const TRIES_TO_WIN = 3;
 
 function calc()
 {
     $triesCount = 0;
 
     $iter = function ($triesCount) use (&$iter) {
-        if ($triesCount === 4) {
+        if ($triesCount > TRIES_TO_WIN) {
             return;
         }
 

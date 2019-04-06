@@ -7,74 +7,41 @@ use function \cli\prompt;
 use function BrainGames\Cli\run;
 
 const GAME_DEFINITION = "Find the greatest common divisor of given numbers.";
+const TRIES_TO_WIN = 3;
+
+function findGcd($num1, $num2)
+{
+    $max = max([$num1, $num2]);
+    $divisor = 1;
+    $firstDivisor = 1;
+    for ($i = $firstDivisor; $i <= $max; $i++) {
+        if ($num1 % $i === 0 && $num2 % $i === 0) {
+            $divisor = $i;
+        }
+    }
+
+    return $divisor;
+}
 
 function guessGcd()
 {
+    $triesCount = 0;
 
-    $randNumb1 = rand(1, 100);
-    $randNumb2 = rand(1, 100);
-
-    $answer = function ($arr) {
-        $max = max($arr);
-        $num1 = $arr[0];
-        $num2 = $arr[1];
-        $divisor = 1;
-        $i = 1;
-        while ($i <= $max) {
-            if ($num1 % $i === 0 && $num2 % $i === 0) {
-                $divisor = $i;
-            }
-            $i++;
+    $iter = function ($triesCount) use (&$iter) {
+        if ($triesCount > TRIES_TO_WIN) {
+            return;
         }
 
-        return $divisor;
+        $num1 = rand(1, 100);
+        $num2 = rand(1, 100);
+
+        $answer = findGcd($num1, $num2);
+
+        $question = "{$num1} {$num2}";
+
+        run(GAME_DEFINITION, $question, $answer, $triesCount);
+        $iter($triesCount + 1);
     };
 
-    $question = function ($arr) {
-        $result = '';
-        foreach ($arr as $element) {
-            $result = "{$result} {$element}";
-        }
-
-        return $result;
-    };
-
-    run(GAME_DEFINITION, $question, $answer, $triesCount);
+    $iter($triesCount);
 }
-
-// function guessGcd()
-// {
-//     $arrWith2RandomNums = function () {
-//         $randNumb1 = rand(1, 100);
-//         $randNumb2 = rand(1, 100);
-//
-//         return [$randNumb1, $randNumb2];
-//     };
-//
-//     $answer = function ($arr) {
-//         $max = max($arr);
-//         $num1 = $arr[0];
-//         $num2 = $arr[1];
-//         $divisor = 1;
-//         $i = 1;
-//         while ($i <= $max) {
-//             if ($num1 % $i === 0 && $num2 % $i === 0) {
-//                 $divisor = $i;
-//             }
-//             $i++;
-//         }
-//
-//         return $divisor;
-//     };
-//
-//     $stringForQuestion = function ($arr) {
-//         $result = '';
-//         foreach ($arr as $element) {
-//             $result = "{$result} {$element}";
-//         }
-//
-//         return $result;
-//     };
-//
-//     run(GAME_DEFINITION, $stringForQuestion, $answer, $arrWith2RandomNums);
-// }
