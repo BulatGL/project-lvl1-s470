@@ -6,40 +6,36 @@ use function \cli\line;
 use function \cli\prompt;
 use function BrainGames\Cli\run;
 
+const GAME_DEFINITION = "What is the result of the expression?";
+const OPERATORS = ['+','-','*'];
+
 function calc()
 {
-    define("OPERATORS", ['+','-','*']);
-    define("GAME_DEFINITION", "What is the result of the expression?");
+    $triesCount = 0;
 
-    $randomArrWith2NumbersAndOperator = function () {
-        $randOperator = constant("OPERATORS")[array_rand(constant("OPERATORS"))];
+    $iter = function ($triesCount) use (&$iter) {
+        if ($triesCount === 4) {
+            return;
+        }
+
+        $randOperator = OPERATORS[array_rand(OPERATORS)];
         $randNumber1 = rand(-10, 10);
         $randNumber2 = rand(-10, 10);
 
-        return [$randNumber1, $randOperator, $randNumber2];
-    };
-
-    $calcFunc = function ($arr) {
-        switch ($arr[1]) {
+        switch ($randOperator) {
             case '+':
-                return $arr[0] + $arr[2];
+                run(GAME_DEFINITION, "{$randNumber1} + {$randNumber2}", $randNumber1 + $randNumber2, $triesCount);
+                break;
             case '-':
-                return $arr[0] - $arr[2];
+                run(GAME_DEFINITION, "{$randNumber1} - {$randNumber2}", $randNumber1 - $randNumber2, $triesCount);
+                break;
             default:
-                return $arr[0] * $arr[2];
+                run(GAME_DEFINITION, "{$randNumber1} * {$randNumber2}", $randNumber1 * $randNumber2, $triesCount);
+                break;
         }
+
+        $iter($triesCount + 1);
     };
 
-    $questionLine = function ($arr) {
-        switch ($arr[1]) {
-            case '+':
-                return "{$arr[0]} + {$arr[2]}";
-            case '-':
-                return "{$arr[0]} - {$arr[2]}";
-            default:
-                return "{$arr[0]} * {$arr[2]}";
-        }
-    };
-
-    run(constant("GAME_DEFINITION"), $questionLine, $calcFunc, $randomArrWith2NumbersAndOperator);
+    $iter($triesCount);
 }

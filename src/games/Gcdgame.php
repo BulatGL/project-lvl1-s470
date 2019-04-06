@@ -6,10 +6,10 @@ use function \cli\line;
 use function \cli\prompt;
 use function BrainGames\Cli\run;
 
+const GAME_DEFINITION = "Find the greatest common divisor of given numbers.";
+
 function guessGcd()
 {
-    define("GAME_DEFINITION", "Find the greatest common divisor of given numbers.");
-
     $arrWith2RandomNums = function () {
         $randNumb1 = rand(1, 100);
         $randNumb2 = rand(1, 100);
@@ -42,5 +42,5 @@ function guessGcd()
         return $result;
     };
 
-    run(constant("GAME_DEFINITION"), $stringForQuestion, $findGcd, $arrWith2RandomNums);
+    run(GAME_DEFINITION, $stringForQuestion, $findGcd, $arrWith2RandomNums);
 }
