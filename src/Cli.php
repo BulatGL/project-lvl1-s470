@@ -5,6 +5,8 @@ namespace BrainGames\Cli;
 use function \cli\line;
 use function \cli\prompt;
 
+const TRIES_TO_WIN = 3;
+
 function run($gameRules = '', $question = '', $answer = 0, $triesCount = 0)
 {
     if ($triesCount === 0) {
@@ -23,9 +25,7 @@ function run($gameRules = '', $question = '', $answer = 0, $triesCount = 0)
         line("Hello, " . NAME . "!\n");
     }
 
-    $triesToWin = 3;
-
-    if ($triesCount === $triesToWin) {
+    if ($triesCount === TRIES_TO_WIN) {
         line("Congratulations, " . NAME);
         return;
     }
