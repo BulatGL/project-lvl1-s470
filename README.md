@@ -8,44 +8,44 @@
 
 ## Description
 
-'A set of small console-type games.'
+A set of small console-type games.
 
 ## Installation
 
-'If you use Composer, you can install Brain-Games system-wide with the following command:'
+Using Composer, you can install brain-games system-wide with the following command:
 
 ```
 1. composer global require bulat/brain-games
 ```
 ## Games and how to start them in bash
 
-### Even
+#### Even
 
-'Answer "yes" if number even otherwise answer "no".'
+Answer "yes" if number even otherwise answer "no".
 ```
 brain-even
 ```
-### Calc
+#### Calc
 
-'Give the result of the expression?'
+Give the result of the expression?
 ```
 brain-calc
 ```
-### Gcd
+#### Gcd
 
-'Find the greatest common divisor of given numbers.'
+Find the greatest common divisor of given numbers.
 ```
 brain-gcd
 ```
-### Progression
+#### Progression
 
-'Give number that is missing in the progression'
+Give number that is missing in the progression
 ```
 brain-progression
 ```
-### Prime
+#### Prime
 
-'Answer "yes" if given number is prime. Otherwise answer "no".'
+Answer "yes" if given number is prime. Otherwise answer "no".
 ```
 brain-prime
 ```
