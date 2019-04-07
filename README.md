@@ -19,7 +19,7 @@ composer global require bulat/brain-games
 ```
 ## Games and commands to start them in bash
 
-#### Even
+### Even
 
 Answer "yes" if number even otherwise answer "no".
 ```
@@ -27,27 +27,27 @@ brain-even
 ```
 
 
-#### Calc
+### Calc
 
 Give the result of the expression.
 ```
 brain-calc
 ```
-[![asciicast](https://asciinema.org/a/moMqQnGM8PehPHmpt8eMYnbBq.svg)](https://asciinema.org/a/moMqQnGM8PehPHmpt8eMYnbBq)
+[![asciicast](https://asciinema.org/a/EnHpUSYpL8e4TKS5L4E146kOj.svg)](https://asciinema.org/a/EnHpUSYpL8e4TKS5L4E146kOj)
 
-#### Gcd
+### Gcd
 
 Find the greatest common divisor of given numbers.
 ```
 brain-gcd
 ```
-#### Progression
+### Progression
 
 Give number that is missing in the progression
 ```
 brain-progression
 ```
-#### Prime
+### Prime
 
 Answer "yes" if given number is prime. Otherwise answer "no".
 ```

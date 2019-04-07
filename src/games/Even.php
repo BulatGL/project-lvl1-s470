@@ -14,7 +14,7 @@ function makeEvenGameData()
     $gameData = [];
     for ($i = 0; $i < NUMBER_OF_QUESTIONS_AND_ANSWERS; $i++) {
         $question = rand(1, 100);
-        $answer = $num % 2 === 0 ? 'yes' : 'no';
+        $answer = $question % 2 === 0 ? 'yes' : 'no';
 
         $gameData[$question] = $answer;
     }
