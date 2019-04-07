@@ -5,26 +5,17 @@ namespace BrainGames\Even;
 use function \cli\line;
 use function \cli\prompt;
 use function BrainGames\Cli\run;
+use const BrainGames\Cli\TRIES_TO_WIN as NUMBER_OF_Q_AND_A;
 
 const GAME_DEFINITION = "Answer 'yes' if number even otherwise answer 'no'.";
-const TRIES_TO_WIN = 3;
 
-function even()
+function constructEvens()
 {
-    $triesCount = 0;
-
-    $iter = function ($triesCount) use (&$iter) {
-        if ($triesCount > TRIES_TO_WIN) {
-            return;
-        }
-
+    $result = [];
+    for ($i = 0; $i < NUMBER_OF_Q_AND_A; $i++) {
         $num = rand(1, 100);
-        $question = "{$num}";
-        $answer = $num % 2 === 0 ? 'yes' : 'no';
+        $result["{$num}"] = $num % 2 === 0 ? 'yes' : 'no';
+    }
 
-        run(GAME_DEFINITION, $question, $answer, $triesCount);
-        $iter($triesCount + 1);
-    };
-
-    $iter($triesCount);
+    run(GAME_DEFINITION, $result);
 }

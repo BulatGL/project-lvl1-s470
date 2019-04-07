@@ -5,38 +5,31 @@ namespace BrainGames\Calc;
 use function \cli\line;
 use function \cli\prompt;
 use function BrainGames\Cli\run;
+use const BrainGames\Cli\TRIES_TO_WIN as NUMBER_OF_Q_AND_A;
 
 const GAME_DEFINITION = "What is the result of the expression?";
 const OPERATORS = ['+','-','*'];
-const TRIES_TO_WIN = 3;
 
-function calc()
+function constructCalcs()
 {
-    $triesCount = 0;
+    $result = [];
+    for ($i = 0; $i < NUMBER_OF_Q_AND_A; $i++) {
+        $operator = OPERATORS[array_rand(OPERATORS)];
+        $num1 = rand(-10, 10);
+        $num2 = rand(-10, 10);
 
-    $iter = function ($triesCount) use (&$iter) {
-        if ($triesCount > TRIES_TO_WIN) {
-            return;
-        }
-
-        $randOperator = OPERATORS[array_rand(OPERATORS)];
-        $randNumber1 = rand(-10, 10);
-        $randNumber2 = rand(-10, 10);
-
-        switch ($randOperator) {
+        switch ($operator) {
             case '+':
-                run(GAME_DEFINITION, "{$randNumber1} + {$randNumber2}", $randNumber1 + $randNumber2, $triesCount);
+                $result["{$num1} + {$num2}"] = $num1 + $num2;
                 break;
             case '-':
-                run(GAME_DEFINITION, "{$randNumber1} - {$randNumber2}", $randNumber1 - $randNumber2, $triesCount);
+                $result["{$num1} - {$num2}"] = $num1 - $num2;
                 break;
             default:
-                run(GAME_DEFINITION, "{$randNumber1} * {$randNumber2}", $randNumber1 * $randNumber2, $triesCount);
+                $result["{$num1} * {$num2}"] = $num1 * $num2;
                 break;
         }
+    }
 
-        $iter($triesCount + 1);
-    };
-
-    $iter($triesCount);
+    run(GAME_DEFINITION, $result);
 }

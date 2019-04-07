@@ -5,47 +5,36 @@ namespace BrainGames\Progression;
 use function \cli\line;
 use function \cli\prompt;
 use function BrainGames\Cli\run;
+use const BrainGames\Cli\TRIES_TO_WIN as NUMBER_OF_Q_AND_A;
 
-const TRIES_TO_WIN = 3;
 const GAME_DEFINITION = "What number is missing in the progression?";
 const PROGRESSION_LENGTH = 10;
-const MAX_PROGRESSION_INDEX = PROGRESSION_LENGTH - 1;
 
 function makeProgression()
 {
-    $firstNum = rand(1, 100);
+    $first = rand(1, 100);
     $difference = rand(1, 10);
     $result = [];
     for ($i = 0; $i < PROGRESSION_LENGTH; $i++) {
-        if ($i === 0) {
-            $result[] = $firstNum;
-        } else {
-            $result[] = $result[$i - 1] + $difference;
-        }
+        $result[] = $first + $difference * $i;
     }
 
     return $result;
 }
 
-function guessNumberInProgression()
+function constructMissingElementProgressions()
 {
-    $triesCount = 0;
+    $result = [];
+    for ($i = 0; $i < NUMBER_OF_Q_AND_A; $i++) {
+        $missingIndex = rand(0, PROGRESSION_LENGTH - 1);
+        $randomProgression = makeProgression();
+        $answer = $randomProgression[$missingIndex];
+        $missingElementProgression = $randomProgression;
+        $missingElementProgression[$missingIndex] = '..';
+        $question = implode(' ', $missingElementProgression);
 
-    $iter = function ($triesCount) use (&$iter) {
-        if ($triesCount > TRIES_TO_WIN) {
-            return;
-        }
+        $result[$question] = $answer;
+    }
 
-        $index = rand(0, MAX_PROGRESSION_INDEX);
-        $randomNumbers = makeProgression();
-        $answer = $randomNumbers[$index];
-        $numbersWithMissingNum = $randomNumbers;
-        $numbersWithMissingNum[$index] = '..';
-
-        $question = implode(' ', $numbersWithMissingNum);
-        run(GAME_DEFINITION, $question, $answer, $triesCount);
-        $iter($triesCount + 1);
-    };
-
-    $iter($triesCount);
+    run(GAME_DEFINITION, $result);
 }
