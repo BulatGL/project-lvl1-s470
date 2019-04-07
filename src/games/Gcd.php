@@ -28,9 +28,9 @@ function makeGcdGameData()
         $num1 = rand(1, 100);
         $num2 = rand(1, 100);
         $question = "{$num1} {$num2}";
-        $answer = findGcd($num1, $num2);
+        $answer = (string) findGcd($num1, $num2);
 
-        $gameData[$question] = (string) $answer;
+        $gameData[$question] = $answer;
     }
 
     run(GAME_DESCRIPTION, $gameData);

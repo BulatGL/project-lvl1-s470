@@ -15,10 +15,9 @@ function run($gameRules, $questionsAndAnswers)
     $name = prompt('May I have your name?');
     line("Hello, {$name}!\n");
 
-    foreach ($questionsAndAnswers as $key => $element) {
-        line("Question: {$key}");
+    foreach ($questionsAndAnswers as $question => $answer) {
+        line("Question: {$question}");
         $userAnswer = prompt("Your answer ");
-        $answer = $element;
         if ($userAnswer === $answer) {
             line("Correct!");
         } else {

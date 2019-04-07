@@ -15,26 +15,24 @@ function makeCalcGameData()
     $gameData = [];
     for ($i = 0; $i < NUMBER_OF_QUESTIONS_AND_ANSWERS; $i++) {
         $operator = OPERATORS[array_rand(OPERATORS)];
-        $num1 = rand(-10, 10);
-        $num2 = rand(-10, 10);
+        $num1 = rand(-100, 100);
+        $num2 = rand(-100, 100);
+        $question = "{$num1} {$operator} {$num2}";
 
         switch ($operator) {
             case '+':
-                $question = "{$num1} + {$num2}";
                 $answer = $num1 + $num2;
-                $gameData[$question] = (string) $answer;
                 break;
             case '-':
-                $question = "{$num1} - {$num2}";
                 $answer = $num1 - $num2;
-                $gameData[$question] = (string) $answer;
                 break;
-            default:
-                $question = "{$num1} * {$num2}";
+            case '*':
                 $answer = $num1 * $num2;
-                $gameData[$question] = (string) $answer;
                 break;
         }
+
+        $answer = (string) $answer;
+        $gameData[$question] = $answer;
     }
 
     run(GAME_DESCRIPTION, $gameData);

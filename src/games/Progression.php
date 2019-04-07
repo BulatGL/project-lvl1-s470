@@ -31,11 +31,12 @@ function makeProgressionGameData()
         $missingElementIndex = rand(0, PROGRESSION_LENGTH - 1);
         $first = rand(1, 100);
         $difference = rand(1, 10);
-        $progression = makeProgressionWithMissingElement($missingElementIndex, $difference, $first);
-        $question = implode(' ', $progression);
+        $progressionWithMissingElement = makeProgressionWithMissingElement($missingElementIndex, $difference, $first);
+        $question = implode(' ', $progressionWithMissingElement);
         $answer = $first + $difference * $missingElementIndex;
+        $answer = (string) $answer;
 
-        $gameData[$question] = (string) $answer;
+        $gameData[$question] = $answer;
     }
 
     run(GAME_DESCRIPTION, $gameData);
