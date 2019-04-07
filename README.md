@@ -15,7 +15,7 @@ A set of small console-type games.
 Using Composer, you can install brain-games system-wide with the following command:
 
 ```
-1. composer global require bulat/brain-games
+composer global require bulat/brain-games
 ```
 ## Games and how to start them in bash
 
