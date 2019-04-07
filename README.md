@@ -3,3 +3,49 @@
 [![Build Status](https://travis-ci.org/BulatGL/project-lvl1-s470.svg?branch=master)](https://travis-ci.org/BulatGL/project-lvl1-s470)
 
 [![asciicast](https://asciinema.org/a/3uKcTaHqo3vxWbukAPbZ2sCzj.svg)](https://asciinema.org/a/3uKcTaHqo3vxWbukAPbZ2sCzj)
+
+# Brain-Games
+
+## Description
+
+'A set of small console-type games.'
+
+## Installation
+
+'If you use Composer, you can install Brain-Games system-wide with the following command:'
+
+```
+1. composer global require bulat/brain-games
+```
+## Games and how to start them in bash
+
+### Even
+
+'Answer "yes" if number even otherwise answer "no".'
+```
+brain-even
+```
+### Calc
+
+'Give the result of the expression?'
+```
+brain-calc
+```
+### Gcd
+
+'Find the greatest common divisor of given numbers.'
+```
+brain-gcd
+```
+### Progression
+
+'Give number that is missing in the progression'
+```
+brain-progression
+```
+### Prime
+
+'Answer "yes" if given number is prime. Otherwise answer "no".'
+```
+brain-prime
+```

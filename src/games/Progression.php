@@ -4,37 +4,39 @@ namespace BrainGames\Progression;
 
 use function \cli\line;
 use function \cli\prompt;
-use function BrainGames\Cli\run;
-use const BrainGames\Cli\TRIES_TO_WIN as NUMBER_OF_Q_AND_A;
+use function BrainGames\Engine\run;
+use const BrainGames\Engine\TRIES_TO_WIN as NUMBER_OF_QUESTIONS_AND_ANSWERS;
 
-const GAME_DEFINITION = "What number is missing in the progression?";
+const GAME_DESCRIPTION = "What number is missing in the progression?";
 const PROGRESSION_LENGTH = 10;
 
-function makeProgression()
+function makeProgressionWithMissingElement($missingElementIndex, $difference, $first)
 {
-    $first = rand(1, 100);
-    $difference = rand(1, 10);
-    $result = [];
+    $progression = [];
     for ($i = 0; $i < PROGRESSION_LENGTH; $i++) {
-        $result[] = $first + $difference * $i;
+        if ($i === $missingElementIndex) {
+            $progression[] = '..';
+        } else {
+            $progression[] = $first + $difference * $i;
+        }
     }
 
-    return $result;
+    return $progression;
 }
 
-function constructMissingElementProgressions()
+function makeProgressionGameData()
 {
-    $result = [];
-    for ($i = 0; $i < NUMBER_OF_Q_AND_A; $i++) {
-        $missingIndex = rand(0, PROGRESSION_LENGTH - 1);
-        $randomProgression = makeProgression();
-        $answer = $randomProgression[$missingIndex];
-        $missingElementProgression = $randomProgression;
-        $missingElementProgression[$missingIndex] = '..';
-        $question = implode(' ', $missingElementProgression);
+    $gameData = [];
+    for ($i = 0; $i < NUMBER_OF_QUESTIONS_AND_ANSWERS; $i++) {
+        $missingElementIndex = rand(0, PROGRESSION_LENGTH - 1);
+        $first = rand(1, 100);
+        $difference = rand(1, 10);
+        $progression = makeProgressionWithMissingElement($missingElementIndex, $difference, $first);
+        $question = implode(' ', $progression);
+        $answer = $first + $difference * $missingElementIndex;
 
-        $result[$question] = $answer;
+        $gameData[$question] = (string) $answer;
     }
 
-    run(GAME_DEFINITION, $result);
+    run(GAME_DESCRIPTION, $gameData);
 }
