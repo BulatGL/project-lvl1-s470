@@ -15,6 +15,8 @@ Using Composer, you can install brain-games system-wide with the following comma
 ```
 composer global require bulat/brain-games
 ```
+[![asciicast](https://asciinema.org/a/G40mESerOuNcqWFcNx7zQy3ua.svg)](https://asciinema.org/a/G40mESerOuNcqWFcNx7zQy3ua)
+
 ## Games and commands to start them in bash
 
 ### Even
