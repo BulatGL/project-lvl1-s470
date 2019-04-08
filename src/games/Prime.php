@@ -30,9 +30,8 @@ function makePrimeGameData()
 {
     $gameData = [];
     for ($i = 0; $i < NUMBER_OF_QUESTIONS_AND_ANSWERS; $i++) {
-        $num = rand(1, 100);
-        $question = "{$num}";
-        $answer = isPrime($num) ? 'yes' : 'no';
+        $question = rand(1, 100);
+        $answer = isPrime($question) ? 'yes' : 'no';
 
         $gameData[$question] = $answer;
     }
